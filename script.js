@@ -5,6 +5,11 @@ var timeBoxValues = []
 
 //loop to create all the timeblocks
 for (var i = 0; i < 9; i++) {
+
+    var valuesDefault = JSON.parse(localStorage.getItem("object"))
+
+    console.log(valuesDefault)
+
     //creating the timeblock elements and setting their attributes
     var timeblock = $("<div>").addClass("row time-block").attr("id", i)
     var timeBox = $("<div>").addClass("col-2 hour")
@@ -13,6 +18,10 @@ for (var i = 0; i < 9; i++) {
     .addClass("col-8 past textArea")
     .text("")
     var saveBtn = $("<button>").addClass("col-2 saveBtn").text("Save")
+
+    if(valuesDefault[i].index = i ) {
+        $(textArea).text(valuesDefault[i].text)
+    }
 
     //appends all the children to the correct parents
     $(timeBox).append(time)
@@ -27,24 +36,6 @@ for (var i = 0; i < 9; i++) {
 
     timeIncrement++
 }
-
-
-
-$(".container").on("click", ".textArea", function () {
-
-    text = $(this)
-        .val()
-        .trim()
-    console.log(text)
-
-    var textInput = $("<textarea>")
-        .addClass("col-8 past textArea")
-        .attr("data-textarea", i)
-        .val(text)
-
-    $(text).replaceWith(textInput)
-
-})
 
 // saves the timeblock text
 $(".container").on("click", ".saveBtn", function () {
@@ -69,9 +60,7 @@ $(".container").on("click", ".saveBtn", function () {
     //saves text and index to local storage
     localStorage.setItem("object",JSON.stringify(timeBoxValues))
 
-    var valuesDefault = JSON.parse(localStorage.getItem("object"))
-
-    console.log(valuesDefault)
+    
 })
 
 

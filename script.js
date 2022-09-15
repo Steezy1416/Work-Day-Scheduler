@@ -1,27 +1,20 @@
-var timeIncrement = 9
+var timeOn = 9
+var realTime = 9
 var amPm = "am"
-var timeBoxValues = []
-
+var day = moment().format("dddd MMM Do")
+$("#currentDay").text(day)
 
 //loop to create all the timeblocks
 for (var i = 0; i < 9; i++) {
 
-    var valuesDefault = JSON.parse(localStorage.getItem("object"))
-
-    console.log(valuesDefault)
-
     //creating the timeblock elements and setting their attributes
     var timeblock = $("<div>").addClass("row time-block").attr("id", i)
     var timeBox = $("<div>").addClass("col-2 hour")
-    var time = $("<p>").text(timeIncrement + amPm)
+    var time = $("<p>").text(timeOn + " " + amPm)
     var textArea = $("<textarea>")
     .addClass("col-8 past textArea")
     .text("")
     var saveBtn = $("<button>").addClass("col-2 saveBtn").text("Save")
-
-    if(valuesDefault[i].index = i ) {
-        $(textArea).text(valuesDefault[i].text)
-    }
 
     //appends all the children to the correct parents
     $(timeBox).append(time)
@@ -29,12 +22,41 @@ for (var i = 0; i < 9; i++) {
     $(".container").append(timeblock)
 
     //checks if its past 12 to reset the time increment and change the time from am to pm
-    if (timeIncrement === 12) {
-        timeIncrement = 0
+    if (timeOn === 11) {
         amPm = "pm"
     }
+    if (timeOn === 12) {
+        timeOn = 0
+    }
 
-    timeIncrement++
+    //calls statusChanges to change the colore of the textarea
+    statusChanger()
+
+    timeOn++
+    realTime++
+}
+
+//changes color of textarea based on the hour
+function statusChanger () {
+    hour = moment().hour()
+    console.log(hour)
+
+    //adds and removes classes that the textarea might or might not have based on the iterration
+    if (hour === realTime) {
+        $(textArea).removeClass("past")
+        $(textArea).removeClass("future")
+        $(textArea).addClass("present")
+    }
+    else if (hour < realTime) {
+        $(textArea).removeClass("present")
+        $(textArea).removeClass("future")
+        $(textArea).addClass("future")
+    }
+    else {
+        $(textArea).removeClass("present")
+        $(textArea).removeClass("future")
+        $(textArea).addClass("past")
+    }
 }
 
 // saves the timeblock text
@@ -49,19 +71,19 @@ $(".container").on("click", ".saveBtn", function () {
         .parent(".time-block")
         .attr("id")
 
-
-    var values = {
-        text: newText,
-        index: index
-    }
-
-    timeBoxValues.push(values)
-
     //saves text and index to local storage
-    localStorage.setItem("object",JSON.stringify(timeBoxValues))
-
-    
+    localStorage.setItem(index, newText)
 })
 
-
+//manually gets the text value from local storage
+$('#0 .textArea').val(localStorage.getItem('0'));
+$('#1 .textArea').val(localStorage.getItem('1'));
+$('#2 .textArea').val(localStorage.getItem('2'));
+$('#3 .textArea').val(localStorage.getItem('3'));
+$('#4 .textArea').val(localStorage.getItem('4'));
+$('#5 .textArea').val(localStorage.getItem('5'));
+$('#6 .textArea').val(localStorage.getItem('6'));
+$('#7 .textArea').val(localStorage.getItem('7'));
+$('#8 .textArea').val(localStorage.getItem('8'));
+$('#9 .textArea').val(localStorage.getItem('9'));
 

@@ -1,5 +1,8 @@
 var timeIncrement = 9
 var amPm = "am"
+
+
+
 //loop to create all the timeblocks
 for (var i = 0; i < 9; i++) {
     //creating the timeblock elements and setting their attributes
@@ -23,25 +26,39 @@ for (var i = 0; i < 9; i++) {
     timeIncrement++
 }
 
-$(".container").on("click", ".textArea", function(){
-    
+$(".container").on("click", ".textArea", function () {
+
     text = $(this)
-    .val()
-    .trim()
+        .val()
+        .trim()
     console.log(text)
 
     var textInput = $("<textarea>")
-    .addClass("col-8 past textArea")
-    .attr("data-textarea", i)
-    .val(text)
+        .addClass("col-8 past textArea")
+        .attr("data-textarea", i)
+        .val(text)
 
     $(text).replaceWith(textInput)
 
 })
 
-$(".container").on("click", ".saveBtn", function() {
+// saves the timeblock text
+$(".container").on("click", ".saveBtn", function () {
+    //finds the textarea sibling and gets its value
     newText = $(this)
-    .closest("textArea")
-    .val()
+        .siblings(".textArea")
+        .val()
     console.log(newText)
+
+    //gets the save button index
+    var index = $(this)
+        .parent(".time-block")
+        .attr("id")
+    console.log(index)
+
+    //saves text and index to local storage
+    localStorage.setItem(newText, index)
 })
+
+
+

@@ -3,10 +3,10 @@ var amPm = "am"
 //loop to create all the timeblocks
 for (var i = 0; i < 9; i++) {
     //creating the timeblock elements and setting their attributes
-    var timeblock = $("<div>").addClass("row time-block")
+    var timeblock = $("<div>").addClass("row time-block").attr("id", i)
     var timeBox = $("<div>").addClass("col-2 hour")
     var time = $("<p>").text(timeIncrement + amPm)
-    var textArea = $("<textarea>").addClass("col-8 past")
+    var textArea = $("<textarea>").addClass("col-8 past textArea")
     var saveBtn = $("<button>").addClass("col-2 saveBtn").text("Save")
 
     //appends all the children to the correct parents
@@ -23,3 +23,18 @@ for (var i = 0; i < 9; i++) {
     timeIncrement++
 }
 
+$(".container").on("click", ".textArea", function(){
+    
+    text = $(this)
+    .val()
+    .trim()
+    console.log(text)
+
+    var textInput = $("<textarea>")
+    .addClass("col-8 past textArea")
+    .attr("data-textarea", i)
+    .val(text)
+
+    $(text).replaceWith(textInput)
+
+})

@@ -14,10 +14,12 @@ for (var i = 0; i < 9; i++) {
     var textArea = $("<textarea>")
     .addClass("col-8 past textArea")
     .text("")
-    var saveBtn = $("<button>").addClass("col-2 saveBtn").text("Save")
+    var saveBtn = $("<button>").addClass("col-2 saveBtn")
+    var font = $("<i>").addClass("fa-solid fa-floppy-disk")
 
     //appends all the children to the correct parents
     $(timeBox).append(time)
+    $(saveBtn).append(font)
     $(timeblock).append(timeBox, textArea, saveBtn)
     $(".container").append(timeblock)
 

@@ -38,3 +38,10 @@ $(".container").on("click", ".textArea", function(){
     $(text).replaceWith(textInput)
 
 })
+
+$(".container").on("click", ".saveBtn", function() {
+    newText = $(this)
+    .closest("textArea")
+    .val()
+    console.log(newText)
+})
